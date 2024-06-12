@@ -1,0 +1,76 @@
+extends layout
+
+block content
+  .container
+  link(rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css' integrity='sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh' crossorigin='anonymous')
+  .container-form
+  form
+  .form-row
+    .form-group.col-md-6
+      label(for='inputDate') Fecha
+      input#inputDate.form-control(type='date' placeholder='Date')
+    .form-group.col-md-6
+      label(for='inputTipo') Tipo
+      input#inputTipo.form-control(type='tipo' placeholder='tipo')
+  .form-row
+    .form-group.col-md-6
+      label(for='inputprof') Profesor que envía
+      input#inputprof.form-control(type='tipo' placeholder='profesor')
+    .form-group.col-md-6
+      label(for='inputHora') Hora
+      input#inputHora.form-control(type='number' placeholder='hora')
+  .form-row
+    .form-group.col-md-6
+      label(for='inputAtender') Profesor que atiende en A.C
+      input#inputAtender.form-control(type='tipo' placeholder='prof')
+    .form-group.col-md-6
+      label(for='inputHora') Hora en A.C
+      input#inputHora.form-control(type='number' placeholder='hora')
+  .form-row
+    .form-group.col-md-6
+      label(for='inputUnidad') Unidad
+      input#inputUnidad.form-control(type='tipo' placeholder='Unidad')
+    .form-group.col-md-6
+      label(for='inputTipo') alumnado
+      input#inputTipo.form-control(type='tipo' placeholder='alumnado')
+
+  .container-form
+  form
+  .form-group
+    label(for='exampleFormControlInput1') Hecho detectado
+    input#exampleFormControlInput1.form-control(type='tipo' placeholder='hecho detectado')
+  .form-group
+    label(for='exampleFormControlInput1') Medida a tomar
+    input#exampleFormControlInput1.form-control(type='tipo' placeholder='Medida a tomar')
+  .form-group
+    label(for='exampleFormControlTextarea1') Explicación/medidas complementarias
+    textarea#exampleFormControlTextarea1.form-control(rows='3')
+  .custom-control.custom-checkbox.mr-sm-2
+    input#customControlAutosizing.custom-control-input(type='checkbox')
+    label.custom-control-label(for='customControlAutosizing') El alumno ha sido enviado al Aula de Convivencia
+  .custom-control.custom-checkbox.mr-sm-2
+    input#customControlAutosizing.custom-control-input(type='checkbox')
+    label.custom-control-label(for='customControlAutosizing') Jefatura de Estudios informa a la familia
+  .form-group
+    label(for='exampleFormControlTextarea1') Descripción
+    textarea#exampleFormControlTextarea1.form-control(rows='3')
+  button#btn-add-to-sqlite(type="submit") registrar
+
+  script.
+      document.getElementById('btn-add-to-sqlite').addEventListener('submit', function(event) {
+        fetch('/addToSqlite', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+        .then(response => response.json())
+        .then(result => {
+          if (result.success) {
+            console.log('Personaje añadido a SQLite');
+          } else {
+            console.error('Error al añadir el personaje a SQLite');
+          }
+        })
+        .catch(error => console.error('Error:', error));
+      });
